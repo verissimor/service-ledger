@@ -109,6 +109,8 @@ To optimize for this pattern, I introduced a `Map<String, BigDecimal> balances` 
 
 # Limitations
 
+* A ledger system should protect against **duplicate requests**, which is commonly handled by including a `unique request identifier` in the request body and enforcing a **unique constraint** on that field in the `transaction table`.
+    - `{ "accountId": "acc-123", "amount": 100.00, "type": "DEPOSIT", "requestId": "req-456" }`
 * The solution won’t work correctly in a multi-instance setup, as locking is handled in-memory and not distributed.
 * Ideally a Double Entry is required for a proper Ledger system.
 * There’s no linter configured, so the code may contain formatting issues or unused imports.
